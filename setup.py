@@ -23,7 +23,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Environment :: MacOS X :: Cocoa",
     ],
-    python_requires  = '>=3.7.6',
+    python_requires  = '>=3.6.8',
     entry_points     = {
         'console_scripts': ['tacky = tacky.__main__:main'],
     }
