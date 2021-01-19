@@ -10,7 +10,7 @@ setuptools.setup(
     version          = version,
     author           = "Sasha Friedenberg",
     author_email     = "carley.f253fa96@icantbelieveitsnotgmail.com",
-    description      = """copy specific UTI's from the macOS Pasteboard""",
+    description      = """copy and paste specific UTI's from the macOS Pasteboard""",
     url              = "https://github.com/friedenberg/tacky",
     packages         = ['tacky'],
     package_dir      = {'tacky': 'src'},
