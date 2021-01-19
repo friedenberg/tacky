@@ -39,7 +39,7 @@ def main():
 def uti_from_argument(uti_type):
     uti_value = uti_type
 
-    if uti_type.startswith('kUTType'):
+    if uti_type.startswith('kUTType') or uti_type.startswith('NSPasteboardType'):
         bundle = NSBundle.bundleWithIdentifier_("com.apple.AppKit")
         objc.loadBundleVariables(bundle, globals(), [(uti_type, b'@')])
         uti_value = globals()[uti_type]
