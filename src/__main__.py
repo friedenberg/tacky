@@ -85,6 +85,7 @@ def list_uti():
             print(NSString.stringWithString_(t).nsstring())
 
 def paste(uti):
+    uti = uti_from_argument(uti)
     pb = NSPasteboard.generalPasteboard()
     for p in pb.pasteboardItems():
         for t in p.types():
