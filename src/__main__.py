@@ -74,9 +74,7 @@ def copy(entries):
                 write_pasteboard(pb, value, uti)
 
 def write_pasteboard(pb, value, uti):
-    new_str = NSString.stringWithString_(value).nsstring()
-    new_data = new_str.dataUsingEncoding_(NSUTF8StringEncoding)
-    pb.setData_forType_(new_data, uti)
+    pb.setData_forType_(value, uti)
 
 def list_uti():
     pb = NSPasteboard.generalPasteboard()
