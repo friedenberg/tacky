@@ -65,7 +65,7 @@ def copy(entries):
     for (uti, path) in entries:
         if path == '-':
             if stdin_data is None:
-                stdin_data = sys.stdin.read()
+                stdin_data = sys.stdin.buffer.read()
 
             write_pasteboard(pb, stdin_data, uti)
         else:
