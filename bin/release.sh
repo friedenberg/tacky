@@ -11,7 +11,5 @@ git push origin main
 version="v$(cat ./VERSION)"
 
 git diff --exit-code -s || (echo "unstaged changes, refusing to release" && exit 1)
-hub release create \
-  -m "$version" \
-  "$version"
+git tag "$version" -m "$version"
 

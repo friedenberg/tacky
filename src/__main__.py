@@ -69,7 +69,7 @@ def copy(entries):
 
             write_pasteboard(pb, stdin_data, uti)
         else:
-            with open(path, 'r') as f:
+            with open(path, 'rb') as f:
                 value = f.read()
                 write_pasteboard(pb, value, uti)
 
