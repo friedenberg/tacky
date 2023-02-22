@@ -2,8 +2,12 @@ import setuptools
 
 version = None
 
-with open('VERSION', 'r') as f:
-    version = f.read()
+version = ""
+file_version = convert_path("tacky/version.py")
+with open(file_version) as f:
+    main_ns = {}
+    exec(f.read(), main_ns)
+    version = main_ns['__version__']
 
 setuptools.setup(
     name             = "tacky",
