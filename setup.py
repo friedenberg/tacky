@@ -1,4 +1,5 @@
 import setuptools
+from distutils.util import convert_path
 
 version = None
 
