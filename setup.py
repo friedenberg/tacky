@@ -4,7 +4,7 @@ from distutils.util import convert_path
 version = None
 
 version = ""
-file_version = convert_path("tacky/version.py")
+file_version = convert_path("src/version.py")
 with open(file_version) as f:
     main_ns = {}
     exec(f.read(), main_ns)
