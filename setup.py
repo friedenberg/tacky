@@ -8,10 +8,12 @@ with open('VERSION', 'r') as f:
 setuptools.setup(
     name             = "tacky",
     version          = version,
-    author           = "Sasha Friedenberg",
+    author           = "Sasha F",
     author_email     = "carley.f253fa96@icantbelieveitsnotgmail.com",
     description      = """copy and paste specific UTI's from the macOS Pasteboard""",
     url              = "https://github.com/friedenberg/tacky",
+    package_data={'': ['VERSION']},
+    include_package_data=True,
     packages         = ['tacky'],
     package_dir      = {'tacky': 'src'},
     install_requires = [
