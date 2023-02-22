@@ -17,8 +17,6 @@ setuptools.setup(
     author_email     = "carley.f253fa96@icantbelieveitsnotgmail.com",
     description      = """copy and paste specific UTI's from the macOS Pasteboard""",
     url              = "https://github.com/friedenberg/tacky",
-    package_data={'': ['VERSION']},
-    include_package_data=True,
     packages         = ['tacky'],
     package_dir      = {'tacky': 'src'},
     install_requires = [
