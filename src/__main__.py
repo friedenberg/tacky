@@ -9,6 +9,7 @@ from Foundation import NSString, NSUTF8StringEncoding, NSBundle
 from AppKit import NSPasteboard, NSPasteboardItem
 
 def main():
+    print("Hello World!")
     parser = argparse.ArgumentParser(prog = "tacky")
     subparsers = parser.add_subparsers()
 
@@ -34,30 +35,38 @@ def main():
             help = 'help:')
 
     args = parser.parse_args()
-    args.func(args)
+    if len(vars(args)) > 0:
+        args.func(args)
+    else:
+        parser.print_help()
 
-def uti_from_argument(uti_type):
-    uti_value = uti_type
-
-    if uti_type.startswith('kUTType') or uti_type.startswith('NSPasteboardType'):
-        bundle = NSBundle.bundleWithIdentifier_("com.apple.AppKit")
-        objc.loadBundleVariables(bundle, globals(), [(uti_type, b'@')])
-        uti_value = globals()[uti_type]
-
-    return uti_value
+# CLI functions, print to stdout
 
 def cli_copy(args):
     copy([(uti_from_argument(e[0]), e[1]) for e in args.item])
 
 def cli_paste(args):
     if args.list:
-        list_uti()
+        cli_list_uti()
     elif args.uti:
         paste(args.uti)
 
+def cli_list_uti():
+    uti_types = list_uti()
+    for t in uti_types:
+        print(t)
+
+# Module methods, used in both CLI and import as module
+
 def copy(entries):
+    """
+    Takes a list of tuples, where the first element is the final UTI type (eg: public.utf8-plain-text). 
+    The second argument is a path to a file or a '-' for stdin.
+    Writes the data to the pasteboard for all the types.
+    """
     pb = NSPasteboard.generalPasteboard()
     types = [e[0] for e in entries]
+    # We're certain this is necessary, no idea why
     pb.declareTypes_owner_(types, None)
 
     stdin_data = None
@@ -76,12 +85,6 @@ def copy(entries):
 def write_pasteboard(pb, value, uti):
     pb.setData_forType_(value, uti)
 
-def list_uti():
-    pb = NSPasteboard.generalPasteboard()
-    for p in pb.pasteboardItems():
-        for t in p.types():
-            print(NSString.stringWithString_(t).nsstring())
-
 def paste(uti):
     uti = uti_from_argument(uti)
     pb = NSPasteboard.generalPasteboard()
@@ -90,6 +93,21 @@ def paste(uti):
             if t == uti:
                 print(p.stringForType_(uti))
                 return
+
+def uti_from_argument(uti_type):
+    uti_value = uti_type
+
+    # Supports referring to constants in addition to proper types, for eg: kUTTypePDF which would map to com.adobe.pdf
+    if uti_type.startswith('kUTType') or uti_type.startswith('NSPasteboardType'):
+        bundle = NSBundle.bundleWithIdentifier_("com.apple.AppKit")
+        objc.loadBundleVariables(bundle, globals(), [(uti_type, b'@')])
+        uti_value = globals()[uti_type]
+
+    return uti_value
+
+def list_uti():
+    pb = NSPasteboard.generalPasteboard()
+    return [NSString.stringWithString_(t).nsstring() for p in pb.pasteboardItems() for t in p.types()]
 
 if __name__ == "__main__":
     main()
