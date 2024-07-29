@@ -9,7 +9,6 @@ from Foundation import NSString, NSUTF8StringEncoding, NSBundle
 from AppKit import NSPasteboard, NSPasteboardItem
 
 def main():
-    print("Hello World!")
     parser = argparse.ArgumentParser(prog = "tacky")
     subparsers = parser.add_subparsers()
 
