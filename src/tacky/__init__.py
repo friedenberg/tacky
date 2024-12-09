@@ -59,10 +59,12 @@ def cli_list_uti():
 
 def copy(entries):
     """
-    Takes a list of tuples, where the first element is the final UTI type (eg: public.utf8-plain-text). 
-    The second argument is a path to a file or a '-' for stdin.
-    Writes the data to the pasteboard for all the types.
+    given a list of uti-path pairs, write the data for each file to the
+    pasteboard under the uti type.
+
+    if a file is "-", read its contents from stdin.
     """
+
     pb = NSPasteboard.generalPasteboard()
     types = [e[0] for e in entries]
     # We're certain this is necessary, no idea why
@@ -82,9 +84,17 @@ def copy(entries):
                 write_pasteboard(pb, value, uti)
 
 def write_pasteboard(pb, value, uti):
+    """
+    write a specific uti-value pair to the given pb
+    """
+
     pb.setData_forType_(value, uti)
 
 def paste(uti):
+    """
+    print out the contents of the given UTI from the pasteboard
+    """
+
     uti = uti_from_argument(uti)
     pb = NSPasteboard.generalPasteboard()
     for p in pb.pasteboardItems():
@@ -96,7 +106,9 @@ def paste(uti):
 def uti_from_argument(uti_type):
     uti_value = uti_type
 
-    # Supports referring to constants in addition to proper types, for eg: kUTTypePDF which would map to com.adobe.pdf
+    # Supports referring to constants in addition to proper types
+    # e.g., kUTTypePDF which would map to com.adobe.pdf
+    # load the constants from the framework if this is a special apple UTI
     if uti_type.startswith('kUTType') or uti_type.startswith('NSPasteboardType'):
         bundle = NSBundle.bundleWithIdentifier_("com.apple.AppKit")
         objc.loadBundleVariables(bundle, globals(), [(uti_type, b'@')])
@@ -105,6 +117,10 @@ def uti_from_argument(uti_type):
     return uti_value
 
 def list_uti():
+    """
+    prints out a list of uti types currently on the pb
+    """
+
     pb = NSPasteboard.generalPasteboard()
     return [NSString.stringWithString_(t).nsstring() for p in pb.pasteboardItems() for t in p.types()]
 
