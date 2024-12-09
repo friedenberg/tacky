@@ -1,0 +1,20 @@
+[project]
+name = "tacky"
+version = "0.0.29"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Sasha F", email = "cornflake.matchbox397@icantbelieveitsnotgmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "pyobjc-core>=10.3.2",
+    "pyobjc-framework-cocoa>=10.3.2",
+]
+
+[project.scripts]
+tacky = "tacky:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

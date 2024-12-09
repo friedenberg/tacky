@@ -1,8 +1,6 @@
 import setuptools
 from distutils.util import convert_path
 
-version = None
-
 version = ""
 file_version = convert_path("src/version.py")
 with open(file_version) as f:
