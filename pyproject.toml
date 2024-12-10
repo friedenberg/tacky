@@ -1,7 +1,7 @@
 [project]
 name = "tacky"
-version = "0.0.30"
-description = "Add your description here"
+version = "0.0.32"
+description = "a CLI to manage the macOS pasteboard"
 readme = "README.md"
 authors = [
     { name = "Sasha F", email = "cornflake.matchbox397@icantbelieveitsnotgmail.com" }
